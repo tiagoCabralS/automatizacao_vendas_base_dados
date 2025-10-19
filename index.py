@@ -13,5 +13,5 @@ except:
     pa.click(x=1287, y=147)
     pa.click(x=1174, y=552)
     pa.doubleClick(400, 285)
-    pa.click(x=1267, y=447)
-    pa.click(x=996, y=383)
+    pa.click(x=1269, y=379)
+    pa.click(x=999, y=390)
