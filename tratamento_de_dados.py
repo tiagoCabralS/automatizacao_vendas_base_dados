@@ -40,9 +40,12 @@ def media_diaria(nome):
 
 def ranking():
     todos = vendas_df.groupby('ID Loja')['Valor Final'].sum()
-    todos = todos.to_dict()
+    top3 = todos.sort_values(ascending=False).head(3)
     rank = {'pri' : {}, 'seg': {}, 'ter': {}}
-    for shop, faturamento in todos.items():
+    rank['pri'] = [top3.index[0], top3.iloc[0]]
+    rank['seg'] = [top3.index[1], top3.iloc[1]] 
+    rank['ter'] = [top3.index[2], top3.iloc[2]]
+    """for shop, faturamento in todos.items():
         if rank['pri'] == {}:
             rank['pri'] = [shop, faturamento]
         elif rank['pri'][1] < faturamento:
@@ -54,8 +57,7 @@ def ranking():
         if rank['ter'] == {}:
             rank['ter'] = [shop, faturamento]
         elif rank['ter'][1] < faturamento and rank['seg'][1] > faturamento:
-            rank['ter'] = [shop, faturamento]
-        
+            rank['ter'] = [shop, faturamento]"""
     return rank
 
 
