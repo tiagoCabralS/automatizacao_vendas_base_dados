@@ -91,6 +91,13 @@ def produtos_mais_vendidos_por_shop():
     return mais_vendidos 
 
 
+def parar(opc):
+    if opc == 0:
+        return True
+    else:
+        return False
+
+
 vendas_df = pd.read_excel('C:\\Users\\carro_akq51l3\\Downloads\\Cópia de Vendas.xlsx')
 
 while True:
@@ -121,12 +128,28 @@ while True:
         nomes = vendas_df['ID Loja']
         nome = checarSeExiste('Qual shopping? ', nomes)
         print(f'O shopping {nome} realizou {contagem_vendas(nome)} vendas.')
-        sleep(2)
+        sleep(1)
+        linha()
+        print('0: Fechar o sistema')
+        print('1: Voltar para o menu principal')
+        opc = leiaInt('Qual ação deseja realizar? ')
+        if parar(opc):
+            print('Fechando sistema...')
+            sleep(1)
+            break
     elif opc == 2:
         nomes = vendas_df['ID Loja']
         nome = checarSeExiste('Qual shopping? ', nomes)
         print(f'O shopping {nome} tem uma média de R${media_diaria(nome):.2f} de faturamento diário.')
-        sleep(4)
+        sleep(1)
+        linha()
+        print('0: Fechar o sistema')
+        print('1: Voltar para o menu principal')
+        opc = leiaInt('Qual ação deseja realizar? ')
+        if parar(opc):
+            print('Fechando sistema...')
+            sleep(1)
+            break
     elif opc == 3:
         top3 = ranking()
         cabecalho('Ranking de Faturamento')
@@ -154,8 +177,24 @@ while True:
         sleep(2)
         print(f'{top3["pri"][0]} com R${formatar_brasil(top3["pri"][1])}!!!')
         sleep(1)
+        linha()
+        print('0: Fechar o sistema')
+        print('1: Voltar para o menu principal')
+        opc = leiaInt('Qual ação deseja realizar? ')
+        if parar(opc):
+            print('Fechando sistema...')
+            sleep(1)
+            break
     elif opc == 4:
         shop = checarSeExiste('Qual shopping? ', vendas_df['ID Loja'])
         result = produtos_mais_vendidos_por_shop().loc[produtos_mais_vendidos_por_shop()['ID Loja'] == shop]
         print(f'O produto mais vendido no shopping {shop} foi {result["Produto"].values[0]} com {result["Quantidade"].values[0]} unidades vendidas.')
-        sleep(2)
+        sleep(1)
+        linha()
+        print('0: Fechar o sistema')
+        print('1: Voltar para o menu principal')
+        opc = leiaInt('Qual ação deseja realizar? ')
+        if parar(opc):
+            print('Fechando sistema...')
+            sleep(1)
+            break
