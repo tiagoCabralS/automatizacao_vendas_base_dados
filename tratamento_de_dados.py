@@ -80,7 +80,15 @@ def checarSeExiste(texto, base):
         for shop in base:
             if leitura == shop:
                 ok = True
-    return leitura
+    return leitura    
+
+
+def produtos_mais_vendidos_por_shop():
+    todos = vendas_df.groupby(['ID Loja', 'Produto'])['Quantidade'].sum().reset_index() 
+    # Reset index para transformar o groupby em DataFrame
+    mais_vendidos = todos.loc[todos.groupby('ID Loja')['Quantidade'].idxmax()]
+    
+    return mais_vendidos 
 
 
 vendas_df = pd.read_excel('C:\\Users\\carro_akq51l3\\Downloads\\Cópia de Vendas.xlsx')
@@ -88,20 +96,22 @@ vendas_df = pd.read_excel('C:\\Users\\carro_akq51l3\\Downloads\\Cópia de Vendas
 while True:
     print()
     cabecalho('Sistema de análise')
-    sleep(2)
+    sleep(1)
     for loja in vendas_df.groupby('ID Loja'):
         print(loja[0])
         sleep(0.3)
-    sleep(2)
+    sleep(1)
     linha()
     print('0: Fechar sistema')
-    sleep(2)
+    sleep(1)
     print('1: Número de vendas de um shopping')
-    sleep(2)
+    sleep(1)
     print('2: Média diária de um shopping')
-    sleep(2)
+    sleep(1)
     print('3: Ranking TOP 3 maiores faturamentos')
-    sleep(2)
+    sleep(1)
+    print('4: Buscar produtos mais vendidos por shopping')
+    sleep(1)
     opc = leiaInt('Qual ação deseja realizar? ')
     if opc == 0:
         print('Fechando sistema...')
@@ -144,3 +154,8 @@ while True:
         sleep(2)
         print(f'{top3["pri"][0]} com R${formatar_brasil(top3["pri"][1])}!!!')
         sleep(1)
+    elif opc == 4:
+        shop = checarSeExiste('Qual shopping? ', vendas_df['ID Loja'])
+        result = produtos_mais_vendidos_por_shop().loc[produtos_mais_vendidos_por_shop()['ID Loja'] == shop]
+        print(f'O produto mais vendido no shopping {shop} foi {result["Produto"].values[0]} com {result["Quantidade"].values[0]} unidades vendidas.')
+        sleep(2)

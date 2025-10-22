@@ -50,10 +50,18 @@ def checarSeExiste(texto, base):
             if leitura == shop:
                 ok = True
     return leitura
-        
 
-nomes = vendas_df['ID Loja']
-print(checarSeExiste('digite um nome: ', nomes))
+
+def produtos_mais_vendidos_por_shop():
+    todos = vendas_df.groupby(['ID Loja', 'Produto'])['Quantidade'].sum().reset_index() 
+    # Reset index para transformar o groupby em DataFrame
+    mais_vendidos = todos.loc[todos.groupby('ID Loja')['Quantidade'].idxmax()]
+    
+    return mais_vendidos 
+
+
+
+print(produtos_mais_vendidos_por_shop())
 
 """vendas_df = pd.read_excel('C:\\Users\\carro_akq51l3\\Downloads\\Cópia de Vendas.xlsx')
 """
